@@ -47,4 +47,39 @@ pipeline {
             }
         }
     }
+
+    post {
+
+        success {
+            emailext(
+                to: 'amaanahmed4463@gmail.com',
+                subject: "SUCCESS: ${JOB_NAME} Build #${BUILD_NUMBER}",
+                body: """
+Build Status: SUCCESS
+
+Job Name: ${JOB_NAME}
+Build Number: ${BUILD_NUMBER}
+
+Build URL:
+${BUILD_URL}
+"""
+            )
+        }
+
+        failure {
+            emailext(
+                to: 'amaanahmed4463@gmail.com',
+                subject: "FAILED: ${JOB_NAME} Build #${BUILD_NUMBER}",
+                body: """
+Build Status: FAILED
+
+Job Name: ${JOB_NAME}
+Build Number: ${BUILD_NUMBER}
+
+Build URL:
+${BUILD_URL}
+"""
+            )
+        }
+    }
 }
